@@ -1,0 +1,1 @@
+export { RegisterCertificate } from './RegisterCertificate';
