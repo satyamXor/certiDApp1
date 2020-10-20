@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import './ViewCertificate.css';
 import { Link } from 'react-router-dom';
-import { Navbar, Nav, NavDropdown, Alert, Table, Row, Col } from 'react-bootstrap';
-import Modal from 'react-bootstrap/Modal';
-
-import { Form } from 'react-bootstrap';
+// import { Navbar, Nav, NavDropdown, Alert, Table, Row, Col,Form,Modal } from 'react-bootstrap';
+import { CertificateBox } from '../CertificateBox';
 
 type State = {
   bunchModal: boolean;
@@ -42,7 +40,7 @@ export class ViewCertificate extends Component<State> {
                        ask the certificate holder (whose certificate you want to see) to give you hash of their certificate.
                       </p>
                       
-                     </div>
+                     </div> 
                   </div>
                </div>
 
@@ -52,88 +50,16 @@ export class ViewCertificate extends Component<State> {
                <div className="card card-round mt40 bluelight-bg">
                   <div className="row">
                     <div className="col-sm-12 text-cente">
-                    <h3 className="">Or you can also check out some recent certificate Hashes</h3>
-                      <p className="mt20"> 0x34c4204b0f808103f69ee547ab9567e2d06b324e2e5532cd765 <a className="btn btn-light btn-sm"><i className="fa fa-file text-dark" aria-hidden="true"></i></a>
- </p>
-                      <p className=""> 0x34c4204b0f808103f69ee547ab9567e2d06b324e2e5532cd765 <a className="btn btn-light btn-sm"><i className="fa fa-file text-dark" aria-hidden="true"></i></a>
-</p>
-                      <p className=""> 0x34c4204b0f808103f69ee547ab9567e2d06b324e2e5532cd765 <a className="btn btn-light btn-sm"><i className="fa fa-file text-dark" aria-hidden="true"></i></a>
-</p>
-                     </div>
+                      <h3 className="">Or you can also check out some recent certificate Hashes</h3>
+                      <p className="mt20"> 0x34c4204b0f808103f69ee547ab9567e2d06b324e2e5532cd765 <a href='/' className="btn btn-light btn-sm"><i className="fa fa-file text-dark" aria-hidden="true"></i></a> </p>
+                      <p className=""> 0x34c4204b0f808103f69ee547ab9567e2d06b324e2e5532cd765 <a href='/' className="btn btn-light btn-sm"><i className="fa fa-file text-dark" aria-hidden="true"></i></a></p>
+                      <p className=""> 0x34c4204b0f808103f69ee547ab9567e2d06b324e2e5532cd765 <a  href='/' className="btn btn-light btn-sm"><i className="fa fa-file text-dark" aria-hidden="true"></i></a></p>
+                    </div>
                   </div>
                </div>
+            <div className=""><a href="/"  className="btn btn-primary btn-xl js-scroll-trigger combtn combtn1 mt20 mb30">Verify Certificate</a></div>
 
-                <div className="">
-                     <a href=""  className="btn btn-primary btn-xl js-scroll-trigger combtn combtn1 mt20 mb30">
-                     Verify Certificate
-                       </a>
-                </div>
-
-
-                <div className="card card-round ">
-                  <div className="row pinside60">
-                    <div className="col-sm-12 text-cente">
-                      <h2 className="text-blue text-weiight-bold">Cerficate of Completion</h2>
-                      <h6 className="text-blue">is awarded to</h6>
-                      <h5 className="text-blue">Sanket Parab</h5>
-                      <h5 className="mt30 font-weight-bold text-dark mb20">
-                        For Extraordinary Compleon in Blockchain Course Blue Belt. 
-                      </h5>
-                      <h5 className="mt30 font-weight-bold text-dark mb20">
-                        The above cerficate informaon is signed by following
-                        1 signer which is cryptographically verified by the
-                        cerficate smart contract.
-                       </h5>
-                       <div className="card card-round mt40 bluelight-bg text-left">
-                                  <Row>
-                                    <Col xs={6} md={3} >
-                                        <div className="whitebox2">
-                                        <img className="img-fluid" src="./images/blocklogy.png" alt="white-logo" />
-                                        </div>
-                                    </Col>
-                                    <Col xs={12} md={9}>
-                                          <Table striped bordered hover size="sm">
-                                          
-                                                  <tbody>
-                                                    <tr>
-                                                      <th>Signer 1:</th>
-                                                      <td>Blocklogy Edutech Private Limited (0xf846...783D</td>
-                                                    </tr>
-                                                    <tr>
-                                                      <th>Signature:</th>
-                                                      <td>0xa94e7876...b69cc3711b</td>
-                                                    </tr>
-                                                    
-                                                  </tbody>
-                                        </Table>
-                                    </Col>
-                                  </Row>
-                         </div>
-                         <h4 className="mt30 font-weight-bold text-dark mb20">
-                            Cerficate Hash:
-                        </h4>
-                        <h6 className="mt30 font-weight-bold text-dark mb20">
-                            0x34c4204b0f808103f69ee547ab9567e2d06b324e2e5532cd7659a8575d075c9d
-                        </h6>
-                        <div className="col-md-12 text-center">
-                          <div className="qr">
-                              <img className="img-fluid" src="./images/qr.png" alt="white-logo" />
-                          </div>
-                        </div>
-
-                        <h6 className="mt30 font-weight-bold text-dark mb20">
-                           Created at transacon0x8ec5...d924
-                        </h6>
-                      
-                        <div className="mt20 mb20">
-                          <a href=""  className="btn btn-primary btn-xl js-scroll-trigger combtn combtn1 mt20 mb30">
-                          View on EtherScan
-                            </a>
-                      </div>
-                     </div>
-                  </div>
-               </div>
-
+      <CertificateBox/>
             </div>
           </div>
         </div>

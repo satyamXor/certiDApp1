@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 import './RegisterCertificate.css';
-import { Link } from 'react-router-dom';
-import { Navbar, Nav, NavDropdown, Alert, } from 'react-bootstrap';
-import Modal from 'react-bootstrap/Modal';
-
-import { Form } from 'react-bootstrap';
+// import { Link } from 'react-router-dom';
+import {  Alert } from 'react-bootstrap';
 
 type State = {
   bunchModal: boolean;
@@ -57,7 +54,7 @@ export class RegisterCertificate extends Component<State> {
                   
                 </Alert>
                 <div className="">
-                     <a href=""  className="btn btn-primary btn-xl js-scroll-trigger combtn combtn1 mt20 mb30">
+                     <a href="/"  className="btn btn-primary btn-xl js-scroll-trigger combtn combtn1 mt20 mb30">
                      Register Certificate
                        </a>
                 </div>
