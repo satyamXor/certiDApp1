@@ -1,18 +1,30 @@
 import React, { Component } from 'react';
+import {Buffer} from 'buffer'
+import Swal from 'sweetalert2';
 import './ListAuthorities.css';
 import { Link } from 'react-router-dom';
-import { Navbar, Nav, NavDropdown, Alert, Table, Row, Col, Button } from 'react-bootstrap';
-import Modal from 'react-bootstrap/Modal';
+import { Alert, Table, Row, Col, Button ,Form} from 'react-bootstrap';
+import ipfs from '../ipfs'
+import { Prev } from 'react-bootstrap/PageItem';
+import ethers from 'ethers'
 
-import { Form } from 'react-bootstrap';
 
 type State = {
   bunchModal: boolean;
-};
+  name : string;
+    website : string;
+    logo : string;
+    authoritiesAll : any[];
+
+}; 
 
 export class ListAuthorities extends Component<State> {
   state: State = {
-    bunchModal: false,
+    bunchModal: true, 
+    name : '',
+    website : '',
+    logo : '',
+    authoritiesAll : [],
   };
 
   handleClose = () => {
@@ -20,7 +32,82 @@ export class ListAuthorities extends Component<State> {
       bunchModal: false,
     });
   };
+  getSurvey = async () => {
+    console.log('hello');
+    
+    const filter = window.certificateInstance.filters.Authorities( null);
+    const logs = await window.certificateInstance.queryFilter(filter);
+    const parseLogs = logs.map((log) => window.certificateInstance.interface.parseLog(log));
+    const authorities = parseLogs.map((ele) => ele.args[0]);
+    const authoritiesAll = await Promise.all(authorities.map(async (ele) =>{
+      const x = await window.certificateInstance.authorities(ele);
+      const p = [x[0],x[1],x[2],x[3],ele]; 
+      return p;
+    }))
+    console.log('All :', authoritiesAll);
+  //   Promise.all(authoritiesAll).then((results)=> {
+  //   console.log(results)
+  // })
+    this.setState({ ...this.state, authoritiesAll: ( authoritiesAll) });
+    return authoritiesAll;
+  };
+ captureFile = async (event : React.ChangeEvent<HTMLInputElement>) => {
+    event.preventDefault()
+    console.log('hello world');
+    
+    const file = event.target.files[0]
+    const reader = new window.FileReader()
+    reader.readAsArrayBuffer(file) 
+    reader.onloadend = async () => {
+      console.log(reader.result); 
+      
+    const buf = Buffer.from(reader.result) ;
+    let asyncGenerator = await ipfs.add(buf) ;
+    console.log(asyncGenerator); 
+    console.log('buffer', buf);
+    if(asyncGenerator) this.setState({logo: asyncGenerator.path})
+    this.setState({bunchModal: false});
+    }
+  } 
 
+  onSubmit =  async (event) => {
+    event.preventDefault();
+    if(window.wallet){
+      try {
+      const sur = await window.certificateInstance.connect(window.wallet).addAuthority(this.state.name,this.state.website,this.state.logo,{value: ethers.utils.parseEther('35')});
+        const receipt = await sur.wait();
+        
+       
+        console.log('TXN Hash :', sur);
+        Swal.fire({
+          icon: 'success',
+          title: 'Oops...',
+          text: 'You are added',
+        });
+      } catch (e) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Something went wrong!',
+        });
+        // setisSubmit(false);
+      }
+
+    }else Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'Please Connect to wallet!',
+    });
+   
+  }
+  
+  componentDidMount = async () => {
+    if(window.wallet){
+    if( (window.wallet.address))this.setState({ ...this.state, address: (window.wallet.address)});
+    else this.setState({ ...this.state, address: (await window.wallet.getAddress())});
+    }
+    await this.getSurvey();
+  };
   render() {
     return (
       <div className="homebg">
@@ -43,161 +130,88 @@ export class ListAuthorities extends Component<State> {
                      </div>
                   </div>
                </div>
-
-              
-               
+               {this.state.authoritiesAll.map((ele) => {
+                          return (
                <div className="card card-round mt40 bluelight-bg">
 
                     <Row>
                       
                       <Col xs={6} md={4} >
-                          <div className="whitebox">
-                          <img className="img-fluid" src="./images/blocklogy.png" alt="white-logo" />
+                          <div className="whitebox" style={{overflow:'hidden'}}>
+                          <img className="img-fluid"  src={`http://13.127.174.128:8080/ipfs/${ele[2]}`} alt="white-logo" />
                           </div>
                       </Col>
                       <Col xs={12} md={8}>
-                      <Table striped bordered hover size="sm">
-                                    
-                                    <tbody>
-                                      <tr>
-                                        <th>Name:</th>
-                                        <td>Blocklogy Edutech Private Limited</td>
-                                      </tr>
-                                      <tr>
-                                        <th>Website:</th>
-                                        <td>blocklogy.org</td>
-                                      </tr>
-                                      
-                                      <tr>
-                                        <th>Image:</th>
-                                        <td>QmT54w4uHQi5qQ9JLzpaCa1L7SSUWvfJ UuXSSSJmjbMQXE</td>
-                                      </tr>
-                                      
-                                      <tr>
-                                        <th>Signing Address:</th>
-                                        <td>0xf846828cbf4ef19f621e33c1649982736ff8783d</td>
-                                      </tr>
-                                      <tr>
-                                        <th>Status:</th>
-                                        <td>Authorised</td>
-                                      </tr>
-                                      
-                                      
-                                      
-                                      
-                                    </tbody>
-                                  </Table>
-                                
-                                  {/* <p><strong>Name:</strong> Blocklogy Edutech Private Limited </p>
-                                  <p><strong>Website:</strong> blocklogy.org </p>
-                                  <p><strong>Image:</strong> QmT54w4uHQi5qQ9JLzpaCa1L7SSUWvfJ UuXSSSJmjbMQXE </p>
-                                  <p><strong>Signing Address::</strong> 0xf846828cbf4ef19f621e33c1649982736ff8783d</p>
-                                  <p><strong>Status:</strong> Authorised</p> */}
+                       
+                            <Table striped bordered hover size="sm">
+                                <tbody>
+                                  <tr>
+                                    <th>Name:</th>
+                                    <td>{ele[0]}</td>
+                                  </tr>
+                                  <tr>
+                                    <th>Website:</th>
+                                    <td>{ele[1]}</td>
+                                  </tr>
+                                  
+                                  <tr>
+                                    <th>Image:</th>
+                                    <td>{ele[2]}</td>
+                                  </tr>
+                                  
+                                  <tr>
+                                    <th>Signing Address:</th>
+                                    <td>{ele[4]}</td>
+                                  </tr>
+                                  <tr>
+                                    <th>Status:</th>
+                                    <td>{ele[3] }</td>
+                                  </tr>
+                                </tbody>
+                              </Table>
+                        
                       </Col>
                     </Row>
                         
                </div>
-               <div className="card card-round mt40 bluelight-bg">
+                            ); })}{' '}
 
-                    <Row>
-                      
-                      <Col xs={6} md={4} >
-                          <div className="whitebox">
-                          <img className="img-fluid" src="./images/blocklogy.png" alt="white-logo" />
-                          </div>
-                      </Col>
-                      <Col xs={12} md={8}>
-                      <Table striped bordered hover size="sm">
-                                    
-                                    <tbody>
-                                      <tr>
-                                        <th>Name:</th>
-                                        <td>Blocklogy Edutech Private Limited</td>
-                                      </tr>
-                                      <tr>
-                                        <th>Website:</th>
-                                        <td>blocklogy.org</td>
-                                      </tr>
-                                      
-                                      <tr>
-                                        <th>Image:</th>
-                                        <td>QmT54w4uHQi5qQ9JLzpaCa1L7SSUWvfJ UuXSSSJmjbMQXE</td>
-                                      </tr>
-                                      
-                                      <tr>
-                                        <th>Signing Address:</th>
-                                        <td>0xf846828cbf4ef19f621e33c1649982736ff8783d</td>
-                                      </tr>
-                                      <tr>
-                                        <th>Status:</th>
-                                        <td>Authorised</td>
-                                      </tr>
-                                      
-                                      
-                                      
-                                      
-                                    </tbody>
-                                  </Table>
-                                
-                                  {/* <p><strong>Name:</strong> Blocklogy Edutech Private Limited </p>
-                                  <p><strong>Website:</strong> blocklogy.org </p>
-                                  <p><strong>Image:</strong> QmT54w4uHQi5qQ9JLzpaCa1L7SSUWvfJ UuXSSSJmjbMQXE </p>
-                                  <p><strong>Signing Address::</strong> 0xf846828cbf4ef19f621e33c1649982736ff8783d</p>
-                                  <p><strong>Status:</strong> Authorised</p> */}
-                      </Col>
-                    </Row>
-                        
-               </div>
-
-                <div className="">
-                     <a href=""  className="btn btn-primary btn-xl js-scroll-trigger combtn combtn1 mt20 mb30">
-                     Become  Certified Authority 
-                       </a>
-                </div>
+                
 
                  
                <div className="card card-round mt40 bluelight-bg">
+               <div  className="btn btn-primary btn-xl js-scroll-trigger combtn combtn1 mt20 mb30">
+                     Become  Certified Authority 
+                 
+                </div>
                   <div className="row">
                     <div className="col-sm-12 text-cente">
                   
-                    <Form className="text-left">
+                    <Form className="text-left" onSubmit={this.onSubmit}>
                         <Form.Group controlId="formBasicEmail">
                           <Form.Label>Enter Name:</Form.Label>
-                          <Form.Control type="email" placeholder="Enter email" />
+                          <Form.Control required name="name" value={this.state.name} onChange={e=>this.setState({name:e.target.value})} placeholder="Enter name" />
                           <Form.Text className="text-muted">
-                            We'll never share your email with anyone else.
+                            This name will be shown in <i className="fa fa-certificate" aria-hidden="true"></i>
                           </Form.Text>
                         </Form.Group>
                         <Form.Group controlId="formBasicEmail">
-                          <Form.Label>Enter Subject:</Form.Label>
-                          <Form.Control type="email" placeholder="Enter Subject / Course Name" />
+                          <Form.Label>Enter website name</Form.Label>
+                          <Form.Control required type="name" placeholder="www.eraswap.info" name="website" value={this.state.website} onChange={e=>this.setState({website:e.target.value})} />
                           <Form.Text className="text-muted">
-                            We'll never share your email with anyone else.
+                            We'll never share your this with anyone else.
                           </Form.Text>
+                        </Form.Group> 
+                        <Form.Group>
+                          <Form.File
+                            className="position-relative"
+                            required
+                            name="file"
+                            accept="image/*" onChange={this.captureFile} 
+                            label="Add your logo here"
+                          />
                         </Form.Group>
-
-                        <Form.Group controlId="formBasicEmail">
-                          <Form.Label>Image:</Form.Label>
-                          <Form.Control type="email" placeholder="E.g. 74. 89" />
-                          <Form.Text className="text-muted">
-                            We'll never share your email with anyone else.
-                          </Form.Text>
-                        </Form.Group>
-                        <Form.Group controlId="formBasicEmail">
-                          <Form.Label>Signing Address:</Form.Label>
-                          <Form.Control type="email" placeholder="e . g . Parcipaon / Merit
-" />
-                          <Form.Text className="text-muted">
-                            We'll never share your email with anyone else.
-                          </Form.Text>
-                        </Form.Group>
-
-
-                        <div className="">
-                          <a href=""  className="btn btn-primary btn-xl js-scroll-trigger combtn combtn1 mt20 mb30">
-                          Submit
-                            </a>
-                      </div>
+                        <button className="btn btn-primary btn-xl js-scroll-trigger combtn combtn1 mt20 mb30" disabled={this.state.bunchModal} type="submit">Submit</button>
                       </Form>
                      </div>
                   </div>
