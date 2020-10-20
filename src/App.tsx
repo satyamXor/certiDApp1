@@ -9,10 +9,10 @@ import './App.css';
 import { NavbarMain } from './components/Navbar/';
 
 function App() {
-  return (
+  return (  
     <div className="App">
+      <BrowserRouter>   
       <NavbarMain />
-      <BrowserRouter>
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/RegisterCertificate" exact component={RegisterCertificate} />
@@ -20,7 +20,6 @@ function App() {
           <Route path="/ListAuthorities" exact component={ListAuthorities} />
           <Route path="/SignCertificate" exact component={SignCertificate} />
         </Switch>
- 
       </BrowserRouter>
     </div>
   );

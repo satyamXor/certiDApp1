@@ -2,12 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import * as serviceWorker from './serviceWorker';
+// import * as serviceWorker from './serviceWorker';
+import './ethereum/instances';
+import { CustomWallet } from './ethereum/custom-wallet';
 
 
-ReactDOM.render(
+ReactDOM.render( 
   <React.StrictMode>
-    <App />
+    <App /> 
   </React.StrictMode>,
   document.getElementById('root')
 );
@@ -18,22 +20,22 @@ ReactDOM.render(
 // serviceWorker.unregister();
 
 // era swap life login hook
-// window.onload = function () {
-//   !window.opener || window.opener.postMessage('loaded', '*');
-// };
+window.onload = function () { 
+  !window.opener || window.opener.postMessage('loaded', '*');
+};
 
 // load wallet from era swap life
-// window.addEventListener(
-//   'message',
-//   (e) => {
-//     setTimeout(() => {
-//       const message = e.data;
-//       if (message.substring) {
-//         if (message.substring(0, 2) == '0x') {
-//           window.wallet = new CustomWallet(message).connect(window.provider);
-//         }
-//       }
-//     }, 0);
-//   },
-//   false
-// );
+window.addEventListener(
+  'message',
+  (e) => {
+    setTimeout(() => {
+      const message = e.data;
+      if (message.substring) {
+        if (message.substring(0, 2) === '0x') {
+          window.wallet = new CustomWallet(message).connect(window.provider);
+        }
+      }
+    }, 0);
+  },
+  false
+); 
