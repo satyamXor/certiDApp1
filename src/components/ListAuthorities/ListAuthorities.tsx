@@ -74,7 +74,7 @@ export class ListAuthorities extends Component<State> {
     event.preventDefault();
     if(window.wallet){
       try {
-      const sur = await window.certificateInstance.connect(window.wallet).addAuthority(this.state.name,this.state.website,this.state.logo,{value: ethers.utils.parseEther('35')});
+      const sur = await window.certificateInstance.connect(window.wallet).addAuthority(this.state.name,this.state.website,this.state.logo,{value: ethers.utils.parseEther('5')});
         const receipt = await sur.wait();
         
        
@@ -137,11 +137,11 @@ export class ListAuthorities extends Component<State> {
                     <Row>
                       
                       <Col xs={6} md={4} >
-                          <div className="whitebox" style={{overflow:'hidden'}}>
-                          <img className="img-fluid"  src={`http://13.127.174.128:8080/ipfs/${ele[2]}`} alt="white-logo" />
-                          </div>
+                        <div className="whitebox" style={{overflow:'hidden'}}>
+                          <img className="img-fluid" width="100%" height="100%"  src={`http://13.127.174.128:8080/ipfs/${ele[2]}`} alt="white-logo" />
+                        </div>
                       </Col>
-                      <Col xs={12} md={8}>
+                      <Col xs={12} md={8}> 
                        
                             <Table striped bordered hover size="sm">
                                 <tbody>
