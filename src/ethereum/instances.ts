@@ -7,7 +7,7 @@ window.providerESN = new es.CustomProvider('testnet');
 
 window.certificateInstance = CertificateFactory.connect(
   // providerESN.resolveAddress(es.addresses[process.env.NODE_ENV].ESN.buildSurvey),
-  '0x5A63f35a755F297a431b68720C9A3928CDf2d3f8',
+  '0x9A994c8419F9cf5877C6620f35CEd510211cE3F7',
   window.providerESN
 );
 window.surveyInstance = es.typechain.ESN.BuildSurveyFactory.connect(
