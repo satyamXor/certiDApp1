@@ -1,16 +1,19 @@
 import React, { Component } from 'react';
 import './ViewCertificate.css';
 import { Link } from 'react-router-dom';
-// import { Navbar, Nav, NavDropdown, Alert, Table, Row, Col,Form,Modal } from 'react-bootstrap';
-import { CertificateBox } from '../CertificateBox';
+import copy from 'copy-to-clipboard';
 
 type State = {
   bunchModal: boolean;
+  hash ?: string;
+  List ?: string [];
 };
 
 export class ViewCertificate extends Component<State> {
   state: State = {
     bunchModal: false,
+    hash : '',
+    List : []
   };
 
   handleClose = () => {
@@ -18,6 +21,18 @@ export class ViewCertificate extends Component<State> {
       bunchModal: false,
     });
   };
+  loadEvents = async () => {
+    const filter = window.certificateInstance.filters.RegisterCertificates(null,null,null);
+    const logs = await window.certificateInstance.queryFilter(filter);
+    const parsedLogs = logs.map((log) => window.certificateInstance.interface.parseLog(log));
+    const updatevalues = parsedLogs.map((parsedLogs) => parsedLogs.args[0]);
+    console.log('All Certificates: ', updatevalues);
+    this.setState({List : updatevalues}) 
+  };
+ 
+  async componentDidMount() {
+    await this.loadEvents();
+  }
 
   render() {
     return (
@@ -45,21 +60,21 @@ export class ViewCertificate extends Component<State> {
                </div>
 
                <h4 className="mt80 font-weight-bold mb20">Paste the certificate hash in the box below:</h4>  
-               <textarea  className="card-round col-md-12" placeholder="Enter Certificate Hash"></textarea>
+               <textarea  onChange={e=>this.setState({hash :e.target.value})} className="card-round col-md-12" placeholder="Enter Certificate Hash"></textarea>
+              <div className=""><Link to={`/ViewCertificate/${this.state.hash}`}  className="btn btn-primary btn-xl js-scroll-trigger combtn combtn1 mt20 mb30">Verify Certificate</Link></div>
                
                <div className="card card-round mt40 bluelight-bg">
                   <div className="row">
                     <div className="col-sm-12 text-cente">
                       <h3 className="">Or you can also check out some recent certificate Hashes</h3>
-                      <p className="mt20"> 0x34c4204b0f808103f69ee547ab9567e2d06b324e2e5532cd765 <a href='/' className="btn btn-light btn-sm"><i className="fa fa-file text-dark" aria-hidden="true"></i></a> </p>
-                      <p className=""> 0x34c4204b0f808103f69ee547ab9567e2d06b324e2e5532cd765 <a href='/' className="btn btn-light btn-sm"><i className="fa fa-file text-dark" aria-hidden="true"></i></a></p>
-                      <p className=""> 0x34c4204b0f808103f69ee547ab9567e2d06b324e2e5532cd765 <a  href='/' className="btn btn-light btn-sm"><i className="fa fa-file text-dark" aria-hidden="true"></i></a></p>
+                      <div className="">  <Link to={`/ViewCertificate/${this.state?.List[0]}`} className="btn btn-light btn-sm">{this.state?.List[0]} <i className="fa fa-file text-dark" onClick={()=>copy(this.state?.List[0])} aria-hidden="true"></i></Link> </div>
+                      <div className=""> <Link to={`/ViewCertificate/${this.state?.List[1]}`} className="btn btn-light btn-sm">{this.state?.List[1]} <i className="fa fa-file text-dark" onClick={()=>copy(this.state?.List[0])} aria-hidden="true"></i></Link></div>
+                      <div className=""><Link to={`/ViewCertificate/${this.state?.List[2]}`} className="btn btn-light btn-sm"> {this.state?.List[2]} <i className="fa fa-file text-dark" onClick={()=>copy(this.state?.List[0])} aria-hidden="true"></i></Link></div>
                     </div>
                   </div>
                </div>
-            <div className=""><a href="/"  className="btn btn-primary btn-xl js-scroll-trigger combtn combtn1 mt20 mb30">Verify Certificate</a></div>
 
-      <CertificateBox/>
+      {/* <CertificateBox/> */} 
             </div>
           </div>
         </div>
