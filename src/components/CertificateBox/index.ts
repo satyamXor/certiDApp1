@@ -1,1 +1,1 @@
-export {CertificateBox}  from './CertificateBox';
+export { CertificateBox } from './CertificateBox';

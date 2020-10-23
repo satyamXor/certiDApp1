@@ -1,1 +1,0 @@
-export { ViewCertificate } from './ViewCertificate';

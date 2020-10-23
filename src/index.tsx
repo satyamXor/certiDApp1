@@ -2,14 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-// import * as serviceWorker from './serviceWorker';
 import './ethereum/instances';
 import { CustomWallet } from './ethereum/custom-wallet';
 
-
-ReactDOM.render( 
+ReactDOM.render(
   <React.StrictMode>
-    <App /> 
+    <App />
   </React.StrictMode>,
   document.getElementById('root')
 );
@@ -20,7 +18,7 @@ ReactDOM.render(
 // serviceWorker.unregister();
 
 // era swap life login hook
-window.onload = function () { 
+window.onload = function () {
   !window.opener || window.opener.postMessage('loaded', '*');
 };
 
@@ -38,4 +36,4 @@ window.addEventListener(
     }, 0);
   },
   false
-); 
+);

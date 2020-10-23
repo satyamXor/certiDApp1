@@ -5,7 +5,7 @@ import { ethers } from 'ethers';
 // import { PrepaidEs } from './ethereum/typechain/PrepaidEs';
 // import { BuildSurvey } from "./ethereum/typechain/BuildSurvey";
 // import { Survey } from './ethereum/typechain/Survey'
-import { BuildSurvey } from 'eraswap-sdk/dist/typechain/ESN/BuildSurvey';
+// import { BuildSurvey } from 'eraswap-sdk/dist/typechain/ESN/BuildSurvey';
 import { CustomProvider } from 'eraswap-sdk/dist/custom-provider';
 import { Certificate } from './ethereum/Certificate';
 // import { CustomWallet } from './ethereum/custom-wallet';
@@ -23,8 +23,6 @@ declare global {
     // validatorManagerInstance: ValidatorManager;
     // prepaidEsInstance: PrepaidEs;
     ethereum: ethers.providers.ExternalProvider;
-    buildSurveyInstance: BuildSurvey;
-    surveyInstance: BuildSurvey;
-    certificateInstance : Certificate
+    certificateInstance: Certificate;
   }
 }

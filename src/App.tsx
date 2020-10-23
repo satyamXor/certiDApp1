@@ -10,10 +10,10 @@ import './App.css';
 import { NavbarMain } from './components/Navbar/';
 
 function App() {
-  return (  
+  return (
     <div className="App">
-      <BrowserRouter>   
-      <NavbarMain />
+      <BrowserRouter>
+        <NavbarMain />
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/RegisterCertificate" exact component={RegisterCertificate} />
