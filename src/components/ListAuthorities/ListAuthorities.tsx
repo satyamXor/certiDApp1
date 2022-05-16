@@ -72,9 +72,7 @@ export class ListAuthorities extends Component<State> {
       try {
         const sur = await window.certificateInstance
           .connect(window.wallet)
-          .addAuthority(this.state.name, this.state.website, this.state.logo, {
-            value: ethers.utils.parseEther('5'),
-          });
+          .addAuthority(this.state.name, this.state.website, this.state.logo);
         const receipt = await sur.wait();
 
         console.log('TXN Hash :', sur);

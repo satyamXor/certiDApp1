@@ -94,7 +94,7 @@ export class RegisterCertificate extends Component<State> {
         });
       } catch (e) {
         const add = await window.wallet.getAddress();
-        const x = new ethers.VoidSigner(add, window.providerESN);
+        const x = new ethers.VoidSigner(add, window.provider);
         try {
           const A = await window.certificateInstance
             .connect(x)

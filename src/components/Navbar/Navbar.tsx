@@ -51,16 +51,12 @@ export function NavbarMain() {
         window.ethereum.enable();
         const metamaskProvider = new ethers.providers.Web3Provider(window.ethereum);
         const network = await metamaskProvider.getNetwork();
-        if (network.name === 'homestead') {
+        if (network.name != 'rinkeby') {
           network.name = 'Main Ethereum Network';
-          alert('please connect with https://test.eraswap.network');
-        } else if (network.chainId === 5196) {
-          network.name = 'Test EraSwap Network';
-        } else if (network.chainId === 5197) {
-          network.name = 'Main Era Swap Network';
+          alert('please connect with rinkeby network');
         }
         console.log(ethers.Wallet);
-        if (network.chainId === 5196 || network.chainId === 5197) {
+        if (network.chainId === 4) {
           const wallet = await metamaskProvider.getSigner();
           console.log('Wallet : ', wallet);
           const address = await wallet.getAddress();
@@ -202,30 +198,24 @@ export function NavbarMain() {
       <Navbar.Collapse id="responsive-navbar-nav">
         <Nav className="navbar-nav ml-auto">
           <Nav.Link href="/">Home</Nav.Link>
-          <Nav.Link href="https://certidapp.com/" target="_blank">
-            Faq
-          </Nav.Link>
           <NavDropdown
             title="Blockchain Certificate"
             id="collasible-nav-dropdown"
             className="btn btn-primary btn-sm js-scroll-trigger combtn"
           >
             <NavDropdown.Item>
-              <Link to="/RegisterCertificate">Register Certificate</Link>
-            </NavDropdown.Item>
-            <NavDropdown.Item>
-              <Link to="/ViewCertificate">View Certificate</Link>
-            </NavDropdown.Item>
-            <NavDropdown.Item>
               <Link to="/ListAuthorities">List Authorities</Link>
             </NavDropdown.Item>
             <NavDropdown.Item>
               <Link to="/SignCertificate">Sign Certificate</Link>
             </NavDropdown.Item>
+            <NavDropdown.Item>
+              <Link to="/RegisterCertificate">Register Certificate</Link>
+            </NavDropdown.Item>
+            <NavDropdown.Item>
+              <Link to="/ViewCertificate">View Certificate</Link>
+            </NavDropdown.Item>
           </NavDropdown>
-          <Nav.Link href="https://certidapp.com/" target="_blank">
-            Blockchain Survey
-          </Nav.Link>
 
           <Nav>
             <div className="dropdown nav mr10  ">

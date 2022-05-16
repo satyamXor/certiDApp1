@@ -30,10 +30,9 @@ export class Home extends Component<State> {
                   </div>
                   <div className="col-lg-10 align-self-baseline">
                     <h4 className="mrg-home">Authenticate Digital Certificate</h4>
-                    <p className="text-white">Powered by:BlockchainTechnology</p>
 
                     <a
-                      href="https://eraswap.life/"
+                      href="/SignCertificate/"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="btn btn-primary btn-xl js-scroll-trigger combtn combtn1 mt20 mb30"
@@ -45,65 +44,6 @@ export class Home extends Component<State> {
               </div>
             </div>
           </div>
-          <div className="container main-section">
-            <div className="rows text-center mt30 mb30">
-              <div className="header-title">
-                <h3>Prevent Unauthorised Certificate Issuance</h3>
-              </div>
-            </div>
-            <div className="card ">
-              <div className="card-body bluelight-bg">
-                <div className="row">
-                  <div className="col-xs-12 col-sm-6 col-md-4 col-lg-4">
-                    <a href="/profile/0x30ba262b4e25a8e7af0c50a83be594c41f16479d">
-                      <div className="offer offer-warning">
-                        <div className="shape">
-                          <div className="shape-text"> 10%</div>
-                        </div>
-                        <div className="offer-content">
-                          <h3 className="lead"> Promotional Incentive </h3>
-                          <span className="pro-id">Mahesh Rapelli</span>
-                        </div>
-                      </div>
-                    </a>
-                  </div>
-                  <div className="col-xs-12 col-sm-6 col-md-4 col-lg-4">
-                    <a href="/profile/0x30ba262b4e25a8e7af0c50a83be594c41f16479d">
-                      <div className="offer offer-warning">
-                        <div className="shape">
-                          <div className="shape-text"> 10%</div>
-                        </div>
-                        <div className="offer-content">
-                          <h3 className="lead"> Promotional Incentive </h3>
-                          <span className="pro-id">Mahesh Rapelli</span>
-                        </div>
-                      </div>
-                    </a>
-                  </div>
-                  <div className="col-xs-12 col-sm-6 col-md-4 col-lg-4">
-                    <a href="/profile/0x30ba262b4e25a8e7af0c50a83be594c41f16479d">
-                      <div className="offer offer-warning">
-                        <div className="shape">
-                          <div className="shape-text"> 10%</div>
-                        </div>
-                        <div className="offer-content">
-                          <h3 className="lead"> Promotional Incentive </h3>
-                          <span className="pro-id">Mahesh Rapelli</span>
-                        </div>
-                      </div>
-                    </a>
-                  </div>
-
-                  <div className="col-md-12 text-right">
-                    <a href="/" className="text-right text-black">
-                      See All
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
           <div className="container main-section">
             <div className="card">
               <div className="card body">
@@ -235,7 +175,7 @@ export class Home extends Component<State> {
             </div>
           </div>
           <div className="col-sm-12 col-md-12 col-lg-12  text-center">
-            <p className="mt20 pdb20">Copyright 2020 Era Swap</p>
+            <p className="mt20 pdb20">Copyright 2022 Satyam</p>
           </div>
         </div>
       </>

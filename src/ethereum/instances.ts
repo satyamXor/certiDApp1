@@ -1,12 +1,17 @@
-// import { ethers } from 'ethers';
+import { ethers } from 'ethers';
 // import { CustomWallet } from './custom-wallet';
-import { es } from 'eraswap-sdk';
+import CertiDapp from './CertiDapp.json';
+
 import { CertificateFactory } from './CertificateFactory';
 
-window.providerESN = new es.CustomProvider('testnet');
+window.provider =  new ethers.providers.AlchemyProvider("rinkeby", "ne5VnYiKMx1T2gQYHscYFfu1oKfeHDn0");
 
-window.certificateInstance = CertificateFactory.connect(
-  // providerESN.resolveAddress(es.addresses[process.env.NODE_ENV].ESN.buildSurvey),
-  '0x9A994c8419F9cf5877C6620f35CEd510211cE3F7',
-  window.providerESN
-);
+// window.certificateInstance = CertificateFactory.connect(
+//   // providerESN.resolveAddress(es.addresses[process.env.NODE_ENV].ESN.buildSurvey),
+//   '0xD06Af22f06B1786013149EEe32Df19b98724821A',
+//   window.provider
+// );
+
+window.certificateInstance = new ethers.Contract("0xD06Af22f06B1786013149EEe32Df19b98724821A",CertiDapp.abi,window.provider);
+
+

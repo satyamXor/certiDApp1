@@ -52,7 +52,9 @@ export class ViewCertificate1 extends Component<MyViewProperties, State> {
     console.log(this.props);
     try {
       this.hash = params.hash;
-      const txn = await window.certificateInstance.certificates(params.hash);
+      console.log(this.hash);
+      
+      const txn = await window.certificateInstance.certificates(this.hash)
       console.log(txn);
       const Data = await axios.get(`https://ipfs.eraswap.cloud/ipfs/${txn[0]}`);
       console.log(Data.data);
@@ -112,7 +114,7 @@ export class ViewCertificate1 extends Component<MyViewProperties, State> {
                     />
                     <br />
                     <h2 className="text-blue text-weiight-bold">
-                      Cerficate of {this.state.Data?.category}
+                      Certificate of {this.state.Data?.category}
                     </h2>
                     <h6 className="text-blue">is awarded to</h6>
                     <h5 className="text-blue">{this.state.Data?.name}</h5>
@@ -144,7 +146,7 @@ export class ViewCertificate1 extends Component<MyViewProperties, State> {
                             <div className="whitebox2">
                               <img
                                 className="img-fluid"
-                                src="https://ipfs.eraswap.cloud/ipfs/QmdQALCX4i6bqao6onaK1WJ3RfJDgKUd1RdAqZc7HfgHZV"
+                                src={"https://ipfs.eraswap.cloud/ipfs/"+this.state.auth?.image}
                                 alt="white-logo"
                               />
                             </div>
@@ -174,7 +176,7 @@ export class ViewCertificate1 extends Component<MyViewProperties, State> {
                         </Row>
                       </div>
                     )}
-                    <h4 className="mt30 font-weight-bold text-dark mb20"> Cerficate Hash:</h4>
+                    <h4 className="mt30 font-weight-bold text-dark mb20"> Certificate Hash:</h4>
                     <h6 className="mt30 font-weight-bold text-dark mb20">{this.hash}</h6>
                     <div className="col-md-12 text-center">
                       <div className="qr">

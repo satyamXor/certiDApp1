@@ -23,6 +23,6 @@ declare global {
     // validatorManagerInstance: ValidatorManager;
     // prepaidEsInstance: PrepaidEs;
     ethereum: ethers.providers.ExternalProvider;
-    certificateInstance: Certificate;
+    certificateInstance: any;
   }
 }

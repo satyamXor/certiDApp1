@@ -22,18 +22,4 @@ window.onload = function () {
   !window.opener || window.opener.postMessage('loaded', '*');
 };
 
-// load wallet from era swap life
-window.addEventListener(
-  'message',
-  (e) => {
-    setTimeout(() => {
-      const message = e.data;
-      if (message.substring) {
-        if (message.substring(0, 2) === '0x') {
-          window.wallet = new CustomWallet(message).connect(window.provider);
-        }
-      }
-    }, 0);
-  },
-  false
-);
+

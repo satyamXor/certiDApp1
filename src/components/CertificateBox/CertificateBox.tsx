@@ -51,7 +51,7 @@ export function CertificateBox(props: Certificate) {
         address: props.address,
         name: authority[0],
         website: authority[1],
-        image: authority[2],
+        image: `https://ipfs.eraswap.cloud/ipfs/${authority[2]}`,
         status: authority[3],
       });
     }
@@ -83,7 +83,7 @@ export function CertificateBox(props: Certificate) {
             <img width="80px" src="./images/Badge.jpg" alt="white-logo" />
             <br />
             <h2 className="text-blue text-weiight-bold">
-              Cerficate of {props.category ? props.category : data?.category}
+              Certificate of {props.category ? props.category : data?.category}
             </h2>
             <h6 className="text-blue">is awarded to</h6>
             <h5 className="text-blue">{props.name ? props.name : data?.name}</h5>
@@ -96,8 +96,8 @@ export function CertificateBox(props: Certificate) {
             {props.Hash ? (
               <>
                 <h5 className="mt30 font-weight-bold text-dark mb20">
-                  The above cerficate informaon is signed by following 1 signer which is
-                  cryptographically verified by the cerficate smart contract.
+                  The above certificate informaon is signed by following 1 signer which is
+                  cryptographically verified by the certificate smart contract.
                 </h5>
                 {!auth.status ? (
                   <div className=" mt40 alert-danger text-left">
@@ -120,7 +120,7 @@ export function CertificateBox(props: Certificate) {
                         <div className="whitebox2">
                           <img
                             className="img-fluid"
-                            src="https://ipfs.eraswap.cloud/ipfs/QmdQALCX4i6bqao6onaK1WJ3RfJDgKUd1RdAqZc7HfgHZV"
+                            src={auth.image}
                             alt="white-logo"
                           />
                         </div>
